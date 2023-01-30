@@ -1,6 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    role: " ",
+    name: " ",
+    username: " ",
+    email: " ",
+    pass: " ",
+  });
+
+  const changeEventHander = (event) => {
+    // console.log(event.target.value);
+    setFormData(() => ({
+      ...formData,
+      [event.target.role]: event.target.value,
+      [event.target.name]: event.target.value,
+      [event.target.username]: event.target.value,
+      [event.target.email]: event.target.value,
+      [event.target.pass]: event.target.value,
+    }));
+    // console.log(formData.name);
+  };
+
+  function sendData(e) {
+    e.preventDefault();
+    // console.log(formData);
+
+    fetch("http://localhost:8000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }).then((res) => {
+      console.log(res);
+    });
+
+    alert("data submited");
+    navigate("/login");
+  }
+
   return (
     <div>
       <div className="h-screen md:flex">
@@ -25,7 +67,7 @@ function Register() {
           <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8" />
         </div>
         <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
-          <form className="bg-white">
+          <form onSubmit={sendData} className="bg-white">
             <h1 className="text-gray-800 font-bold text-2xl mb-1">
               Please Register to Continue...
             </h1>
@@ -35,15 +77,15 @@ function Register() {
 
             <div className="flex items-center border-2  my-4 rounded-2xl">
               <select
-                style={{ border: "none" }}
+                onChange={changeEventHander}
                 class="form-select py-2  px-3 rounded-pill"
-                aria-label="Default select example"
+                name="role"
               >
                 <option selected>Select your Role</option>
-                <option value="1">Student</option>
-                <option value="2">Teacher</option>
-                <option value="3">Admin</option>
-                <option value="4">Resolver</option>
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Admin">Admin</option>
+                <option value="Resolver">Resolver</option>
               </select>
             </div>
             <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
@@ -60,9 +102,10 @@ function Register() {
                 />
               </svg>
               <input
+                onChange={changeEventHander}
                 className="pl-2 outline-none border-none"
                 type="text"
-                name=""
+                name="name"
                 id=""
                 placeholder="Full name"
               />
@@ -84,9 +127,10 @@ function Register() {
                 />
               </svg>
               <input
+                onChange={changeEventHander}
                 className="pl-2 outline-none border-none"
                 type="text"
-                name=""
+                name="username"
                 id=""
                 placeholder="Username"
               />
@@ -107,9 +151,10 @@ function Register() {
                 />
               </svg>
               <input
+                onChange={changeEventHander}
                 className="pl-2 outline-none border-none"
                 type="text"
-                name=""
+                name="email"
                 id=""
                 placeholder="Email Address"
               />
@@ -128,9 +173,10 @@ function Register() {
                 />
               </svg>
               <input
+                onChange={changeEventHander}
                 className="pl-2 outline-none border-none"
-                type="text"
-                name=""
+                type="text "
+                name="pass"
                 id=""
                 placeholder="Set Password"
               />

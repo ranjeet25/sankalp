@@ -1,6 +1,27 @@
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [pass, setPass] = useState("");
+
+  function onSubmit(e) {
+    e.preventDefault();
+
+    fetch("http://localhost:8000/register", { method: "POST" })
+      .then((res) => res.json())
+      .then((data) => {
+        if (username == data.uname && pass == data.pass) {
+          alert("login sucessfull");
+          navigate("/student");
+        } else {
+          alert("Wrong username or password");
+        }
+      });
+  }
+
   return (
     <div>
       <div className="h-screen md:flex">
@@ -25,7 +46,7 @@ function Login() {
           <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8" />
         </div>
         <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
-          <form className="bg-white">
+          <form onSubmit={onSubmit} className="bg-white">
             <h1 className="text-gray-800 font-bold text-2xl mb-1">
               Please Login to Continue
             </h1>
@@ -49,6 +70,9 @@ function Login() {
                 />
               </svg>
               <input
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
                 className="pl-2 outline-none border-none"
                 type="text"
                 name=""
@@ -71,6 +95,9 @@ function Login() {
                 />
               </svg>
               <input
+                onChange={(e) => {
+                  setPass(e.target.value);
+                }}
                 className="pl-2 outline-none border-none"
                 type="text"
                 name=""
