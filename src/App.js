@@ -5,6 +5,8 @@ import Hero from "./Components/home/Hero";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Dashboard from "./Components/Dashboard/Dashboard";
+import AdminDashboard from "./Components/Dashboard/AdminDashboard";
+import ResolverDashboard from "./Components/Dashboard/ResolverDashboard";
 
 function App() {
   return (
@@ -14,6 +16,14 @@ function App() {
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/student" element={<Dashboard></Dashboard>}></Route>
+        <Route
+          path="/admin"
+          element={<AdminDashboard></AdminDashboard>}
+        ></Route>
+        <Route
+          path="/resolver"
+          element={<ResolverDashboard></ResolverDashboard>}
+        ></Route>
       </Routes>
     </div>
   );

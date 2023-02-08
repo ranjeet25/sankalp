@@ -8,7 +8,7 @@ function SideNav(props) {
 
   return (
     <div>
-      <div className="absolute w-full shadow-sm p-2 z-10 bg-white">
+      <div className="absolute  w-full shadow-sm p-2 z-10 bg-white">
         <button
           onClick={() => {
             changetoggle(!toggle);
@@ -37,36 +37,36 @@ function SideNav(props) {
               <p className="p-2  m-2 text-center    ">
                 Name : <span className=" font-medium">{props.username}</span>
               </p>
-              <p className="py-2 text-sm  m-2 text-gray-50 bg-pink-400 text-center rounded-full">
+              <p className=" text-sm  p-3 bg-purple-500 text-center text-white">
                 Role : <span className=" font-medium">Student</span>
               </p>
-              <p className="py-2 m-2 text-sm  text-gray-50 bg-violet-400 text-center rounded-full">
+              <p className="text-sm  p-3 bg-purple-500 text-center text-white">
                 Username : <span className=" font-medium">ranjeet25</span>
               </p>
             </div>
 
-            <div>
-              <button className=" text-sm w-60 py-3 px-16 mt-3  bg-white border border-gray-400 rounded-full focus:ring focus:ring-violet-500">
+            <div className="hover:bg-gray-200 w-full mx-4 bg-gray-100">
+              <button className=" text-sm  py-3  w-full h-full ">
                 Add Complaints
               </button>
             </div>
-            <div>
-              <button className=" text-sm  w-60 py-3 px-16 mt-3  bg-white border border-gray-400 rounded-full focus:ring focus:ring-violet-500">
+            <div className="hover:bg-gray-200 w-full mx-4 bg-gray-100 mt-2">
+              <button className=" text-sm  py-3  w-full h-full ">
                 Check Status
               </button>
             </div>
-            <div>
-              <button className=" text-sm w-60 py-3 px-16 mt-3  bg-white border border-gray-400 rounded-full focus:ring focus:ring-violet-500">
+            <div className="hover:bg-gray-200 w-full mx-4 bg-gray-100 mt-2">
+              <button className=" text-sm  py-3  w-full h-full ">
                 History
               </button>
             </div>
-            <div>
-              <button className=" text-sm w-60 py-3 px-16 mt-3  bg-white border border-gray-400 rounded-full focus:ring focus:ring-violet-500">
+            <div className="hover:bg-gray-200 w-full mx-4 bg-gray-100 mt-2">
+              <button className=" text-sm  py-3  w-full h-full ">
                 Support
               </button>
             </div>
-            <div>
-              <button className=" text-white text-sm w-60  py-3 px-16 mt-3  bg-red-400 border border-gray-400 rounded-full focus:ring focus:ring-red-500">
+            <div className="w-full mx-4 bg-gray-100 mt-2">
+              <button className=" text-white text-sm w-full  py-3  mt-3  bg-red-400 border border-gray-400  focus:ring focus:ring-red-500">
                 Logout
               </button>
             </div>

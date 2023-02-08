@@ -131,7 +131,6 @@ function Register() {
                 className="pl-2 outline-none border-none"
                 type="text"
                 name="username"
-                id=""
                 placeholder="Username"
               />
             </div>

@@ -15,7 +15,7 @@ function Dahboard() {
   return (
     <div className="flex flex-col lg:flex-row justify-start  ">
       <SideNav username={name}></SideNav>
-      <div className="w-screen lg:w-2/4 h-full flex justify-center bg-gray-100 ">
+      <div className="w-screen lg:w-2/4 h-full flex justify-center  ">
         <AddcomplaintsModal></AddcomplaintsModal>
       </div>
 

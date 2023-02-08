@@ -10,11 +10,25 @@ function Login() {
   function onSubmit(e) {
     e.preventDefault();
 
-    fetch("http://localhost:8000/register", { method: "POST" })
+    const uname = {
+      uname: username,
+    };
+
+    fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(uname),
+    });
+
+    fetch("http://localhost:8000/login_data", { method: "POST" })
       .then((res) => res.json())
       .then((data) => {
-        if (username == data.uname && pass == data.pass) {
-          alert("login sucessfull");
+        // console.log(data[0]);
+
+        if (pass === data[0].password) {
+          alert("Data found to be correct");
           navigate("/student");
         } else {
           alert("Wrong username or password");
