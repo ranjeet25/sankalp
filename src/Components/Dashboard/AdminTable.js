@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 function AdminTable() {
   const [userdata, usersetData] = useState([]);
+  const [Id, setId] = useState();
 
   useEffect(() => {
     fetch("http://localhost:8000/admin")
@@ -13,11 +14,27 @@ function AdminTable() {
       });
   }, []);
 
-  //   console.log(userdata);
+  var userId;
+
+  function postUserId() {
+    var obj = { userId: userId };
+    fetch(`http://localhost:8000/resolver/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    }).then((res) => {
+      // console.log(res);
+    });
+    console.log(userId);
+  }
+
+  console.log(userId);
 
   return (
     <div>
-      <div className="h-screen md:w-auto w-screen  overflow-scroll rounded-lg border border-gray-600 shadow-sm m-5">
+      <div className="h-[90vh] md:w-auto w-screen  overflow-scroll rounded-lg border border-gray-600 shadow-sm m-5">
         <table className="w-full h-24 border-collapse bg-white text-left text-sm text-gray-500">
           <thead className="bg-gray-50">
             <tr>
@@ -90,7 +107,14 @@ function AdminTable() {
                       </svg>
                     </button>
 
-                    <button className="Forward">
+                    <button
+                      onClick={() => {
+                        // console.log(itr._id);
+                        userId = itr._id;
+                        postUserId();
+                      }}
+                      className="Forward"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

@@ -5,13 +5,14 @@ function ComplaintHistory() {
   const [recordModal, openRecordModal] = useState(false);
   const [History, setHistory] = useState([]);
 
-  useEffect(() => {
+  function fetchFun() {
     fetch("http://localhost:8000/history")
       .then((res) => res.json())
       .then((data) => {
-        setHistory(data);
+        setHistory(data.reverse());
       });
-  }, []);
+  }
+  fetchFun();
 
   return (
     <div>
@@ -23,7 +24,7 @@ function ComplaintHistory() {
             <div className="z-10 bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
               <div className="bg-white py-4 w-3/5  rounded-md text-center">
                 {/* TABLE */}
-                <div className="h-4/5  overflow-scroll rounded-lg border border-gray-600 shadow-sm m-5">
+                <div className="h-[60vh]  overflow-scroll rounded-lg border border-gray-600 shadow-sm m-5">
                   <table className="w-full  border-collapse bg-white text-left text-sm text-gray-500">
                     <thead className="bg-gray-50">
                       <tr>
@@ -132,6 +133,7 @@ function ComplaintHistory() {
 
                 <button
                   onClick={() => {
+                    fetchFun();
                     openHistoryModal(false);
                   }}
                   className="bg-pink-400 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold"
