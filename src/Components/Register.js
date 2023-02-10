@@ -25,7 +25,7 @@ function Register() {
     // console.log(formData.name);
   };
 
-  function sendData(e) {
+  var sendData = (e) => {
     e.preventDefault();
     // console.log(formData);
 
@@ -41,7 +41,7 @@ function Register() {
 
     alert("data submited");
     navigate("/login");
-  }
+  };
 
   return (
     <div>

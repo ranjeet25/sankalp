@@ -22,12 +22,18 @@ function ComplaintHistory() {
           {/* History component */}
           {HistoryModal && (
             <div className="z-10 bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
-              <div className="bg-white py-4 w-3/5  rounded-md text-center">
+              <div className="bg-white py-4 w-4/5  rounded-md text-center">
                 {/* TABLE */}
                 <div className="h-[60vh]  overflow-scroll rounded-lg border border-gray-600 shadow-sm m-5">
                   <table className="w-full  border-collapse bg-white text-left text-sm text-gray-500">
                     <thead className="bg-gray-50">
                       <tr>
+                        <th
+                          scope="col"
+                          className="px-6 py-4 font-medium text-gray-900"
+                        >
+                          SrNo
+                        </th>
                         <th
                           scope="col"
                           className="px-6 py-4 font-medium text-gray-900"
@@ -58,9 +64,14 @@ function ComplaintHistory() {
                         />
                       </tr>
                     </thead>
-                    {History.map((itr) => {
+                    {History.map((itr, index) => {
                       return (
-                        <tr className="hover:bg-gray-50">
+                        <tr key={index} className="hover:bg-gray-50">
+                          <td className="px-6 py-4">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-green-100 border px-2 py-1 text-xs font-semibold text-gray-800">
+                              {index + 1}
+                            </span>
+                          </td>
                           <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                             <div className="text-sm">
                               <div className="font-medium text-gray-700">

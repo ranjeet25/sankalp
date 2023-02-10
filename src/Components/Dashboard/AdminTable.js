@@ -3,13 +3,18 @@ import { useEffect } from "react";
 
 function AdminTable() {
   const [userdata, usersetData] = useState([]);
-  const [Id, setId] = useState();
+  // FORWARD STATES
+  const [forwardModal, openForwardModal] = useState(false);
+  const [userDataId, setUserDataId] = useState();
+  // VIEW STATES
+  const [viewModal, openViewModal] = useState(false);
+  const [userComplaint, setUserComplaint] = useState();
 
   useEffect(() => {
     fetch("http://localhost:8000/admin")
       .then((res) => res.json())
       .then((data) => {
-        //   console.log(data);
+        //console.log(data);
         usersetData(data.reverse());
       });
   }, []);
@@ -34,10 +39,57 @@ function AdminTable() {
 
   return (
     <div>
+      {viewModal && (
+        <div className="z-10 bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+          <div className=" bg-white px-16 py-14 rounded-md text-center border w-[50vw] ">
+            <h2 className="text-sm mb-4 font-bold text-slate-500">
+              Below is the Complaint Added by user with ID
+              <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
+                {userDataId}
+              </span>
+            </h2>
+            <div className="bg-green-50 p-2">
+              <p className="test-sm text-gray-600 text-center ">
+                {userComplaint}
+              </p>
+            </div>
+
+            <button
+              onClick={() => openViewModal(false)}
+              className="bg-indigo-500 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold mt-2"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      )}
+      {forwardModal && (
+        <div className="z-10 bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+          <div className=" bg-white px-16 py-14 rounded-md text-center border ">
+            <h2 className="text-sm mb-4 font-bold text-slate-500">
+              User complaint with ID
+              <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
+                {userDataId}
+              </span>
+              Forwarded to Resolver
+            </h2>
+
+            <button
+              onClick={() => openForwardModal(false)}
+              className="bg-indigo-500 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      )}
       <div className="h-[90vh] md:w-auto w-screen  overflow-scroll rounded-lg border border-gray-600 shadow-sm m-5">
         <table className="w-full h-24 border-collapse bg-white text-left text-sm text-gray-500">
           <thead className="bg-gray-50">
             <tr>
+              <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+                SrNo
+              </th>
               <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                 Name
               </th>
@@ -53,9 +105,16 @@ function AdminTable() {
               <th scope="col" className="px-6 py-4 font-medium text-gray-900" />
             </tr>
           </thead>
-          {userdata.map((itr) => {
+
+          {/* TABLE */}
+          {userdata.map((itr, index) => {
             return (
-              <tr className="hover:bg-gray-50">
+              <tr key={index} className="hover:bg-gray-50">
+                <td className="px-6 py-4">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-green-100 border px-2 py-1 text-xs font-semibold text-gray-800">
+                    {index + 1}
+                  </span>
+                </td>
                 <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                   <div className="text-sm">
                     <div className="font-medium text-gray-700">
@@ -85,7 +144,14 @@ function AdminTable() {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex justify-end gap-4">
-                    <button className="View">
+                    <button
+                      onClick={() => {
+                        setUserComplaint(itr.complaint);
+                        setUserDataId(itr._id);
+                        openViewModal(true);
+                      }}
+                      className="View"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -111,7 +177,9 @@ function AdminTable() {
                       onClick={() => {
                         // console.log(itr._id);
                         userId = itr._id;
+                        setUserDataId(itr._id);
                         postUserId();
+                        openForwardModal(true);
                       }}
                       className="Forward"
                     >
