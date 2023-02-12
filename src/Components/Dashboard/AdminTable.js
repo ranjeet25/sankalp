@@ -9,6 +9,9 @@ function AdminTable() {
   // VIEW STATES
   const [viewModal, openViewModal] = useState(false);
   const [userComplaint, setUserComplaint] = useState();
+  // Delete STATES
+  const [deleteModal, openDeleteModal] = useState(false);
+  //  const [_userDataId, _setUserDataId] = useState();
 
   useEffect(() => {
     fetch("http://localhost:8000/admin")
@@ -32,10 +35,24 @@ function AdminTable() {
     }).then((res) => {
       // console.log(res);
     });
-    console.log(userId);
+    // console.log(userId);
   }
 
-  console.log(userId);
+  // console.log(userId);
+
+  function deleteUserId() {
+    var obj = { userId: userId };
+    fetch(`http://localhost:8000/delete/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    }).then((res) => {
+      console.log(res);
+    });
+    // console.log(userId);
+  }
 
   return (
     <div>
@@ -76,6 +93,26 @@ function AdminTable() {
 
             <button
               onClick={() => openForwardModal(false)}
+              className="bg-indigo-500 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      )}
+      {deleteModal && (
+        <div className="z-10 bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+          <div className=" bg-white px-16 py-14 rounded-md text-center border ">
+            <h2 className="text-sm mb-4 font-bold text-slate-500">
+              User complaint with ID
+              <span className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600">
+                {userDataId}
+              </span>
+              Deleted
+            </h2>
+
+            <button
+              onClick={() => openDeleteModal(false)}
               className="bg-indigo-500 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold"
             >
               Ok
@@ -199,7 +236,16 @@ function AdminTable() {
                       </svg>
                     </button>
 
-                    <button className="Delete">
+                    <button
+                      onClick={() => {
+                        // console.log(itr._id);
+                        userId = itr._id;
+                        setUserDataId(itr._id);
+                        deleteUserId();
+                        openDeleteModal(true);
+                      }}
+                      className="Delete"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

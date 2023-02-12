@@ -44,7 +44,7 @@ function ResolverDashboard() {
           </div>
         </div>
       )}
-      <SideDash head="Resolver Dash" data={userId}></SideDash>
+      <SideDash head="Grievance Head" data={userId}></SideDash>
       <div className="h-[90vh] md:w-auto  overflow-scroll rounded-lg border border-gray-600 shadow-sm m-5">
         <table className="w-[70vw] h-24 border-collapse bg-white text-left text-sm text-gray-500">
           <thead className="bg-gray-50">

@@ -22,14 +22,22 @@ function Login() {
       body: JSON.stringify(uname),
     });
 
-    fetch("http://localhost:8000/login_data", { method: "POST" })
+    fetch("http://localhost:8000/login_data")
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data[0]);
+        // console.log(data);
 
-        if (pass === data[0].password) {
+        if (pass == data.password) {
           alert("Data found to be correct");
-          navigate("/student");
+
+          if (data.role == "Student") {
+            window.sessionStorage.setItem("username", username);
+            navigate("/student");
+          } else if (data.role == "Admin") {
+            navigate("/admin");
+          } else {
+            navigate("/resolver");
+          }
         } else {
           alert("Wrong username or password");
         }
